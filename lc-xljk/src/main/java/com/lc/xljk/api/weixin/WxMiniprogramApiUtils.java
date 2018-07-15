@@ -30,7 +30,7 @@ public class WxMiniprogramApiUtils {
 	 * @author lisq
 	 * @date 2018年7月14日
 	 */
-	public HashMap<String,String> doWxApilogin(String requestCode) throws BusinessException{
+	public HashMap<String,Object> doWxApilogin(String requestCode) throws BusinessException{
 		String url = wxServerConfig.getWxsessionurl()+"?&grant_type=authorization_code&appid="+wxServerConfig.getAppid()
 				+"&secret"+wxServerConfig.getAppsecret()+"&js_code="+requestCode;
 		String result =  HttpClientUtil.doHttpGet(url, null);

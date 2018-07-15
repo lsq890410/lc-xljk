@@ -1,6 +1,7 @@
 package com.lc.xljk.controller.auth;
 
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.validation.constraints.NotNull;
@@ -36,14 +37,14 @@ public class XljkLoginController extends AbsXljkController{
 	@ResponseBody
 	public WxClientResultVO<String> doWxMiniProgramLogin(@NotNull @RequestParam(name="code") String code)throws BusinessException {
 		//1. 调用微信api
-		Map<String,String> wxResult = wxMiniProgramUtils.doWxApilogin(code);
+		Map<String,Object> wxResult = wxMiniProgramUtils.doWxApilogin(code);
 		//2. 对结果进行分析
 		if(!StringUtils.isEmpty(wxResult.get(__S_APPID))) {
 			//成功：新增用户，并返回appsession
 			return XljkClientTools.getSuccessObj(__S_APPSESSION,service.doLogin(wxResult));
 		} else {
 			//失败：返回失败信息
-			throw new BusinessException("微信API请求发生异常："+wxResult.get("errcode")+","+wxResult.get("errormsg"));
+			throw new BusinessException("微信API请求发生异常："+wxResult.get("errcode")+","+wxResult.get("errmsg"));
 		}
 	}
 }
