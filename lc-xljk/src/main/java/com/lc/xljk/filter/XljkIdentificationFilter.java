@@ -54,9 +54,8 @@ public class XljkIdentificationFilter implements Filter,IXljkConstance{
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
 			logger.error("认证失败："+e.getMessage(),e);
-			response.getOutputStream().write(LcJsonUtils.toJSONString(XljkClientTools.getFailjson("认证失败："+e.getMessage())).getBytes());
-			response.getOutputStream().flush();
-			response.getOutputStream().close();
+			response.getWriter().print(XljkClientTools.getFailjson("认证失败："+e.getMessage()));
+			response.getWriter().close();
 			return;
 		}
 		try {
@@ -65,9 +64,8 @@ public class XljkIdentificationFilter implements Filter,IXljkConstance{
 			logger.error("请求失败："+e.getMessage(),e);
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
-			response.getOutputStream().write(LcJsonUtils.toJSONString(XljkClientTools.getFailjson("请求失败："+e.getMessage())).getBytes());
-			response.getOutputStream().flush();
-			response.getOutputStream().close();
+			response.getWriter().print(XljkClientTools.getFailjson("请求失败："+e.getMessage()));
+			response.getWriter().close();
 		}
 	}
 	
